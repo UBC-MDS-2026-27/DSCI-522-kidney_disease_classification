@@ -1,0 +1,44 @@
+---
+title: "Predicting Chronic Kidney Disease from Routine Clinical Measurements"
+author:
+  - June Lynn
+  - Richard Von Celsing
+  - Carmen Zhang
+  - Graham Greene
+date: today
+format:
+  html:
+    toc: true
+    embed-resources: true
+jupyter: python3
+---
+
+## Summary
+
+<!-- Write this last, after results are in. -->
+
+## Introduction
+
+### Background
+
+### Why this problem matters
+
+### Research question
+
+### Data
+
+### Target variable
+
+## Methods
+
+<!-- Teammates: data download, cleaning, train/test split, EDA, model -->
+
+```{python}
+import pandas as pd
+```
+
+## Results
+
+## Discussion
+
+## References
