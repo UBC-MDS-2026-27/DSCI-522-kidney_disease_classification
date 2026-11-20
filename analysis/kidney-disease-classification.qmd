@@ -36,6 +36,155 @@ The target variable we want to predict is the diagnosis of each patient: either 
 
 ## Methods
 
+```{python}
+#| warning: false
+import subprocess
+import sys
+from pathlib import Path
+
+import altair as alt
+import matplotlib.pyplot as plt
+import pandas as pd
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+```
+
+### Data
+
+We downloaded the data from the UCI Machine Learning Repository (Rubini, Soundarapandian, and Eswaran 2015) 
+using a script ('scripts/download_data.py') that saves it as-is to data/raw/. The report runs this script when it renders, 
+so all results come straight from the original source.
+
+```{python}
+subprocess.run(
+    [sys.executable, "scripts/download_data.py"],
+    cwd="..", check=True, capture_output=True,
+)
+ckd = pd.read_csv("../data/raw/ckd_raw.csv")
+```
+
+Two text columns contained stray tab characters: one diabetes value was recorded as a tab followed by "no" and two 
+diagnoses were recorded as "ckd" followed by a tab. We removed leading and trailing whitespace from every text column.
+
+```{python}
+text_cols = ckd.select_dtypes(exclude="number").columns
+ckd[text_cols] = ckd[text_cols].apply(lambda s: s.str.strip())
+```
+
+### Train/test split
+
+We split the data into a training set (75%, 300 patients) and a test set (25%, 100 patients). The split was stratified by 
+diagnosis so both sets keep the original proportion of patients with CKD (62.5%). All exploratory analysis and feature selection 
+below uses the training set only, the test set is set aside for the final evaluation of the model.
+
+```{python}
+train_df, test_df = train_test_split(
+    ckd, test_size=0.25, random_state=522, stratify=ckd["class"]
+)
+
+labels = {
+    "age": "Age (years)", "bp": "Blood pressure (mm Hg)",
+    "sg": "Specific gravity", "al": "Albumin (0-5)", "su": "Sugar (0-5)",
+    "rbc": "Red blood cells", "pc": "Pus cells", "pcc": "Pus cell clumps",
+    "ba": "Bacteria", "bgr": "Blood glucose random (mg/dL)",
+    "bu": "Blood urea (mg/dL)", "sc": "Serum creatinine (mg/dL)",
+    "sod": "Sodium (mEq/L)", "pot": "Potassium (mEq/L)",
+    "hemo": "Hemoglobin (g/dL)", "pcv": "Packed cell volume (%)",
+    "wbcc": "White blood cell count (cells/cumm)",
+    "rbcc": "Red blood cell count (millions/cmm)",
+    "htn": "Hypertension", "dm": "Diabetes mellitus",
+    "cad": "Coronary artery disease", "appet": "Appetite",
+    "pe": "Pedal edema", "ane": "Anemia", "class": "Diagnosis",
+}
+```
+
+### Exploratory data analysis and feature selection
+
+Many features had missing values (Figure 1). We excluded any feature missing in more than 10% of training patients. This removed 11 of the 24 features.
+
+```{python}
+pct_missing = train_df.drop(columns="class").isna().mean()
+keep = pct_missing[pct_missing <= 0.1].index.tolist()
+
+missing_df = (
+    pct_missing.mul(100).rename("pct_missing")
+    .rename_axis("feature").reset_index()
+    .assign(feature=lambda d: d["feature"].map(labels))
+)
+bars = alt.Chart(missing_df).mark_bar().encode(
+    x=alt.X("pct_missing:Q", title="Missing values (% of training patients)"),
+    y=alt.Y("feature:N", sort="-x", title=None),
+    color=alt.condition(
+        alt.datum.pct_missing > 10, alt.value("#d62728"), alt.value("#4c78a8")
+    ),
+)
+cutoff = alt.Chart(pd.DataFrame({"x": [10]})).mark_rule(strokeDash=[4, 4]).encode(x="x:Q")
+(bars + cutoff).properties(width=450, height=380)
+```
+
+**Figure 1.** Percentage of missing values for each feature in the training set. Features past the dashed line (over 10% missing, in red) were dropped.
+
+Next, we ranked the remaining features by how strongly they relate to CKD. We calculated the Pearson correlation 
+between each feature and the diagnosis using every training patient with a value for that feature (Table 1). 
+Hypertension (r = 0.60) and diabetes mellitus (r = 0.55) were the strongest, followed by random blood glucose 
+(r = 0.41), appetite (r = 0.39) and blood urea (r = 0.39).
+
+```{python}
+to_number = {"yes": 1, "no": 0, "abnormal": 1, "normal": 0,
+             "present": 1, "notpresent": 0, "poor": 1, "good": 0}
+X_train = train_df[keep].replace(to_number).apply(pd.to_numeric)
+y_train = (train_df["class"] == "ckd").astype(int)
+
+strength = X_train.corrwith(y_train).sort_values(key=abs, ascending=False)
+
+(
+    strength.round(2)
+    .rename("Correlation with CKD (r)")
+    .rename(index=labels)
+    .rename_axis("Feature")
+    .to_frame()
+)
+```
+
+**Table 1.** Pearson correlation between each kept feature and CKD diagnosis in the training set, strongest first.
+
+We examined the correlations between features to avoid selecting features that carry the same information (Figure 2). 
+Working down the ranking in Table 1, we added a feature only if it did not correlate with any already selected feature more strongly than 0.7 (in absolute value).
+None of the top-ranked features exceeded this threshold. The four selected features are therefore hypertension, diabetes mellitus, random blood glucose and appetite.
+
+```{python}
+corr = (
+    X_train.assign(ckd=y_train).corr()
+    .rename(index=labels | {"ckd": "CKD diagnosis"},
+            columns=labels | {"ckd": "CKD diagnosis"})
+)
+plt.figure(figsize=(10, 8))
+sns.heatmap(corr, annot=True, fmt=".2f", cmap="coolwarm", vmin=-1, vmax=1,
+            annot_kws={"size": 7})
+plt.tight_layout()
+plt.show()
+```
+
+**Figure 2.** Pearson correlations between the 13 kept features and CKD diagnosis in the training set. 
+Blue indicates a positive correlation and red a negative one.
+
+```{python}
+selected = []
+for feature in strength.index:
+    if all(abs(X_train[feature].corr(X_train[c])) < 0.7 for c in selected):
+        selected.append(feature)
+    if len(selected) == 4:
+        break
+
+Path("../data/processed").mkdir(parents=True, exist_ok=True)
+cols = selected + ["class"]
+train_df[cols].to_csv("../data/processed/ckd_train.csv", index=False)
+test_df[cols].to_csv("../data/processed/ckd_test.csv", index=False)
+```
+
+The training and test sets using only the four selected features and the diagnosis were saved to `data/processed/` for model fitting.
+
+
 ## Results
 
 ## Discussion
