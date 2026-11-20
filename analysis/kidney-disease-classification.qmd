@@ -52,7 +52,7 @@ from sklearn.model_selection import train_test_split
 ### Data
 
 We downloaded the data from the UCI Machine Learning Repository (Rubini, Soundarapandian, and Eswaran 2015) 
-using a script ('scripts/download_data.py') that saves it as-is to data/raw/. The report runs this script when it renders, 
+using a script (`scripts/download_data.py`) that saves it as-is to `data/raw/`. The report runs this script when it renders, 
 so all results come straight from the original source.
 
 ```{python}
@@ -75,7 +75,7 @@ ckd[text_cols] = ckd[text_cols].apply(lambda s: s.str.strip())
 
 We split the data into a training set (75%, 300 patients) and a test set (25%, 100 patients). The split was stratified by 
 diagnosis so both sets keep the original proportion of patients with CKD (62.5%). All exploratory analysis and feature selection 
-below uses the training set only, the test set is set aside for the final evaluation of the model.
+below uses the training set only; the test set is set aside for the final evaluation of the model.
 
 ```{python}
 train_df, test_df = train_test_split(
