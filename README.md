@@ -35,8 +35,6 @@ uv run quarto render
 
 # Dependencies
 
-***\*\* this part need attention / update, if needed \*\****
-
 - uv (version 0.12 or higher)
 
 - Quarto (version 1.10 or higher)
@@ -61,4 +59,10 @@ Our instructions for the AI assistant are in [`CLAUDE.md`](https://github.com/UB
 
 # References
 
-***\*\* Please add \*\****
+GBD Chronic Kidney Disease Collaboration. 2020. "Global, Regional, and National Burden of Chronic Kidney Disease, 1990–2017: A Systematic Analysis for the Global Burden of Disease Study 2017." *The Lancet* 395 (10225): 709–733. https://doi.org/10.1016/S0140-6736(20)30045-3.
+
+Kovesdy, Csaba P. 2022. "Epidemiology of Chronic Kidney Disease: An Update 2022." *Kidney International Supplements* 12 (1): 7–11. https://doi.org/10.1016/j.kisu.2021.11.003.
+
+Qin, Jiongming, Lin Chen, Yuhua Liu, Chuanjun Liu, Changhao Feng, and Bin Chen. 2020. "A Machine Learning Methodology for Diagnosing Chronic Kidney Disease." *IEEE Access* 8: 20991–21002. https://doi.org/10.1109/ACCESS.2019.2963053.
+
+Rubini, L., P. Soundarapandian, and P. Eswaran. 2015. "Chronic Kidney Disease." UCI Machine Learning Repository. https://doi.org/10.24432/C5G020.
