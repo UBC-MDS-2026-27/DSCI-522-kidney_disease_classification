@@ -4,7 +4,9 @@ Authors: Carmen Zhang, Graham Greene, June Lynn, Richard Von Celsing
 
 # About:
 
-***(\*\* A short paragraph (view from 10,000 feet) that says what question you asked, what you found at a high level, and 1-2 sentences on what the findings might mean.)***
+In this project we build a classification model using a logistic regression algorithm which uses patient tests and information to predict whether a patient has chronic kidney disease. In practice, if a patient is determined to likely have chronic kidney disease based on the model, a clinician and evaluate them and do further testing. On a held-out test set, our final classifier had a recall of 0.92 and an F2 score (beta = 2) of 0.88. Of the 63 patients in the test set with chronic kidney disease, the model predicted 58 of them correctly (true positives) and 5 incorrectly (false negatives), giving a recall of 0.92. The decision threshold of the model was tuned explicitly to minize false negative predictions because they are most harmful in this context where patients with chronic kidney disease who are classified incorrectly could result in delayed treatment and avoidable adverse health outcomes.
+
+The dataset used in this project contains patient lab tests, information and response labels created by L. Rubini, P. Soundarapandian, and P. Eswaran who contributed it to the UCI Machine Learning Repository in 2015. The dataset was accessed from that repository for this project and can be accessed [here](https://archive.ics.uci.edu/dataset/336/chronic+kidney+disease). Each row in the dataset corresponds to one patient and contains features related to demographics, vital signs, blood and urine tests, and medical history.
 
 # Report
 
