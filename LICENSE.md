@@ -3,13 +3,15 @@
 This project uses two licenses: one for the software code and one for the
 report and other written content.
 
+The data set in `data/` and the Code of Conduct are covered by their own licenses (CC BY 4.0 and CC BY-SA 3.0 respectively); see the License section of the README for details.
+
 ## Software code
 
 All code in this repository is licensed under the MIT License.
 
 ### MIT License
 
-Copyright (c) 2026  Richard von Celsing, Graham Greene, Carmen Zhang, June Lynn
+Copyright (c) 2026 Richard von Celsing, Graham Greene, Carmen Zhang, June Lynn
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
