@@ -15,30 +15,37 @@ jupyter: python3
 
 ## Summary
 
-<!-- Write this last, after results are in. -->
-
 ## Introduction
 
-### Background
+Chronic kidney disease (CKD) is a long-term condition in which the kidneys gradually lose their ability to filter waste and excess fluid from the blood. It is usually diagnosed with laboratory tests, most often by estimating how well the kidneys filter blood from the level of serum creatinine, a waste product that builds up when the kidneys are not working well (Kovesdy 2022). CKD is common worldwide. In 2017, there were an estimated 697.5 million cases of CKD, a global prevalence of 9.1%, and CKD caused 1.2 million deaths (GBD Chronic Kidney Disease Collaboration 2020). Between 1990 and 2017, the global all-age death rate from CKD increased by 41.5% (GBD Chronic Kidney Disease Collaboration 2020). The disease is more common in people with diabetes and high blood pressure, and it places an especially large burden on low- and middle-income countries, which are the least equipped to deal with its consequences (Kovesdy 2022).
 
-### Why this problem matters
+Detecting CKD early is important but difficult. CKD usually has no obvious symptoms in its early stages, so it may not be detected until the kidneys have already lost a substantial part of their function (Qin et al. 2020). Early detection allows patients to receive treatment that can slow the progression of the disease (Qin et al. 2020), which may help them avoid or delay kidney failure, when dialysis or a kidney transplant becomes necessary. Many of the measurements that are relevant to kidney health, such as blood pressure and common blood and urine tests, are inexpensive and are already collected during routine care. If a machine learning model can use these measurements to accurately identify patients who are likely to have CKD, it could help clinicians decide which patients need further testing. This could be especially useful in settings where access to kidney specialists is limited.
 
-### Research question
+In this project, we ask the following question: **Can we predict whether a patient has chronic kidney disease using their age, blood pressure, blood and urine test results, and medical history?**
 
-### Data
+To answer this question, we use the Chronic Kidney Disease data set from the UCI Machine Learning Repository (Rubini, Soundarapandian, and Eswaran 2015). The data were collected from patients at a hospital in Tamil Nadu, India, over a period of nearly two months. Each row in the data set represents one patient, and there are 400 patients in total. Each patient is described by 24 features, which fall into four groups:
 
-### Target variable
+- **Demographics and vital signs:** age and blood pressure.
+- **Urine tests:** specific gravity, albumin, sugar, red blood cells, pus cells, pus cell clumps, and bacteria.
+- **Blood tests:** random blood glucose, blood urea, serum creatinine, sodium, potassium, hemoglobin, packed cell volume, white blood cell count, and red blood cell count.
+- **Medical history and symptoms:** whether the patient has hypertension, diabetes mellitus, coronary artery disease, pedal edema (swelling of the feet), or anemia, and whether their appetite is good or poor.
+
+Of these features, 11 are numeric and 13 are categorical. Many values are missing; for example, some patients do not have results for every blood test. The data set is shared under a Creative Commons Attribution 4.0 International (CC BY 4.0) license.
+
+The target variable we want to predict is the diagnosis of each patient: either CKD or not CKD. The data set contains 250 patients with CKD and 150 patients without CKD. We treat CKD as the positive class, because correctly identifying patients who have the disease is the main goal of a screening tool. Since every patient has a recorded diagnosis along with clinical measurements, this data set allows us to train and evaluate a classification model that answers our question.
 
 ## Methods
-
-<!-- Teammates: data download, cleaning, train/test split, EDA, model -->
-
-```{python}
-import pandas as pd
-```
 
 ## Results
 
 ## Discussion
 
 ## References
+
+GBD Chronic Kidney Disease Collaboration. 2020. "Global, Regional, and National Burden of Chronic Kidney Disease, 1990–2017: A Systematic Analysis for the Global Burden of Disease Study 2017." *The Lancet* 395 (10225): 709–733. https://doi.org/10.1016/S0140-6736(20)30045-3.
+
+Kovesdy, Csaba P. 2022. "Epidemiology of Chronic Kidney Disease: An Update 2022." *Kidney International Supplements* 12 (1): 7–11. https://doi.org/10.1016/j.kisu.2021.11.003.
+
+Qin, Jiongming, Lin Chen, Yuhua Liu, Chuanjun Liu, Changhao Feng, and Bin Chen. 2020. "A Machine Learning Methodology for Diagnosing Chronic Kidney Disease." *IEEE Access* 8: 20991–21002. https://doi.org/10.1109/ACCESS.2019.2963053.
+
+Rubini, L., P. Soundarapandian, and P. Eswaran. 2015. "Chronic Kidney Disease." UCI Machine Learning Repository. https://doi.org/10.24432/C5G020.
