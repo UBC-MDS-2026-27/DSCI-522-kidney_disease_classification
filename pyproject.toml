@@ -15,4 +15,5 @@ dependencies = [
 dev = [
     "ipykernel>=7.4.0",
     "jupyterlab>=4.6.6",
+    "vl-convert-python>=1.9.0.post1",
 ]
