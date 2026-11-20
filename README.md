@@ -81,8 +81,6 @@ See [LICENSE.md](LICENSE.md) for the full license terms.
 
 # AI use statement:
 
-We used Anthropic [Claude Code](https://claude.com/claude-code) Opus 5.5 to help adapt this project from conda and Jupyter to uv and Quarto. All AI-generated changes were reviewed, tested, and edited by the authors, who take full responsibility for the content of this repository.
-
 We used AI as a learning and supporting tool rather than to complete the work for us. We asked AI to guide us step by step, explain concepts, help debug errors, and provide feedback on our code and reasoning. For example, our prompts included "Guide me step by step rather than give me the answer" and "Help me understand the error and explain how to fix it." We also asked AI to identify mistakes and suggest improvements. All final decisions, code, and written work remain the responsibility of our team.
 
 # References
