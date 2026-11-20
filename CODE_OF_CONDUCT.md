@@ -38,7 +38,11 @@ This Code of Conduct applies to all project contributors and participants, inclu
 
 ## Reporting and Enforcement
 
-If you experience or witness unacceptable behavior, please report the incident privately to a project maintainer through an agreed team contact channel.
+If you experience or witness unacceptable behavior, please report the incident privately to any team member you feel comfortable contacting, using one of the email addresses listed below.
+* Carmen Zhang: carmenzhang@student.ubc.ca
+* Graham Greene: grahamgreene@student.ubc.ca
+* June Lynn: junelynn@student.ubc.ca
+* Richard von Celsing: richardvoncelsing@student.ubc.ca
 
 When reporting an incident, please provide relevant details, including what happened, when it occurred, and any supporting information.
 
@@ -66,6 +70,6 @@ Serious or repeated violations may result in stronger consequences.
 
 ## Attribution
 
-This Code of Conduct was adapted from the Python Software Foundation Code of Conduct, with modifications to reflect the needs of the Kidney Disease Classification project.
+This Code of Conduct was adapted from the [Python Software Foundation Code of Conduct](https://policies.python.org/python.org/code-of-conduct/), with modifications to reflect the needs of the Kidney Disease Classification project.
 
 The original Python Software Foundation Code of Conduct is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License.
