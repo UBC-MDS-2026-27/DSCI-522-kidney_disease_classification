@@ -2,7 +2,7 @@
 title: "Predicting Chronic Kidney Disease from Routine Clinical Measurements"
 author:
   - June Lynn
-  - Richard Von Celsing
+  - Richard von Celsing
   - Carmen Zhang
   - Graham Greene
 date: today
@@ -10,12 +10,14 @@ format:
   html:
     toc: true
     embed-resources: true
+  typst:
+    fig-format: png
 jupyter: python3
 ---
 
 ## Summary
 
-In this project we build a classification model using a logistic regression algorithm which uses patient tests and information to predict whether a patient has chronic kidney disease. In practice, if a patient is determined to likely have chronic kidney disease based on the model, a clinician and evaluate them and do further testing. On a held-out test set, our final classifier had a recall of 0.92 and an F2 score (beta = 2) of 0.88. Of the 63 patients in the test set with chronic kidney disease, the model predicted 58 of them correctly (true positives) and 5 incorrectly (false negatives), giving a recall of 0.92. The decision threshold of the model was tuned explicitly to minize false negative predictions because they are most harmful in this context where patients with chronic kidney disease who are classified incorrectly could result in delayed treatment and avoidable adverse health outcomes. It is important to note that of the 37 healthy patients in the test set, 21 of them were flagged as having chronic kidney disease. This high false positive rate would likely not be acceptable in a clinical setting due to the incurred costs of having to run extra tests on on a large number of patients who are actually healthy. Before deployment in a clinical setting, we therefore recommend to improve the model's precision through futher research efforts while ensuring the recall remains at a similarly high level.
+In this project we build a classification model using a logistic regression algorithm which uses patient tests and information to predict whether a patient has chronic kidney disease. In practice, if a patient is determined to likely have chronic kidney disease based on the model, a clinician can evaluate them and do further testing. On a held-out test set, our final classifier had a recall of 0.92 and an F2 score (beta = 2) of 0.88. Of the 63 patients in the test set with chronic kidney disease, the model predicted 58 of them correctly (true positives) and 5 incorrectly (false negatives), giving a recall of 0.92. The decision threshold of the model was tuned explicitly to minimize false negative predictions because they are most harmful in this context where patients with chronic kidney disease who are classified incorrectly could result in delayed treatment and avoidable adverse health outcomes. It is important to note that of the 37 healthy patients in the test set, 21 of them were flagged as having chronic kidney disease. This high false positive rate would likely not be acceptable in a clinical setting due to the incurred costs of having to run extra tests on a large number of patients who are actually healthy. Before deployment in a clinical setting, we therefore recommend improving the model's precision through further research efforts while ensuring the recall remains at a similarly high level.
 
 ## Introduction
 
@@ -23,7 +25,7 @@ Chronic kidney disease (CKD) is a long-term condition in which the kidneys gradu
 
 Detecting CKD early is important but difficult. CKD usually has no obvious symptoms in its early stages, so it may not be detected until the kidneys have already lost a substantial part of their function (Qin et al. 2020). Early detection allows patients to receive treatment that can slow the progression of the disease (Qin et al. 2020), which may help them avoid or delay kidney failure, when dialysis or a kidney transplant becomes necessary. Many of the measurements that are relevant to kidney health, such as blood pressure and common blood and urine tests, are inexpensive and are already collected during routine care. If a machine learning model can use these measurements to accurately identify patients who are likely to have CKD, it could help clinicians decide which patients need further testing. This could be especially useful in settings where access to kidney specialists is limited.
 
-In this project, we ask the following question: **Can we predict whether a patient has chronic kidney disease using their age, blood pressure, blood and urine test results, and medical history?** Once the data is explored, a smaller subset of these features are used for prediction.
+In this project, we ask the following question: **Can we predict whether a patient has chronic kidney disease using their age, blood pressure, blood and urine test results, and medical history?** Once the data is explored, a smaller subset of these features is used for prediction.
 
 To answer this question, we use the Chronic Kidney Disease data set from the UCI Machine Learning Repository (Rubini, Soundarapandian, and Eswaran 2015). The data were collected from patients at a hospital in Tamil Nadu, India, over a period of nearly two months. Each row in the data set represents one patient, and there are 400 patients in total. Each patient is described by 24 features, which fall into four groups:
 
@@ -412,13 +414,13 @@ We evaluated the final model on the `{python} n_test` patients in the test set, 
 
 ## Discussion
 
-We developed a model that is able to predict chronic kidney disease in patients  with reasonable performance. The model uses information on whether a patient has hypertension, diabetes mellitus, their apetite and their blood glucose random test values. Our model was specifically tuned to minimize false negative predictions since these are the most dangerous outcome in a clinical setting that could lead to avoidable adverse health outcomes for patients.
+We developed a model that is able to predict chronic kidney disease in patients with reasonable performance. The model uses information on whether a patient has hypertension, diabetes mellitus, their appetite and their blood glucose random test values. Our model was specifically tuned to minimize false negative predictions since these are the most dangerous outcome in a clinical setting that could lead to avoidable adverse health outcomes for patients.
 
-We did not expect to see small C values resulting in a logistic regression classifier that predicted the majority class for all patients. We also did not expect that achieving a high recall would come at such a large cost in precision as the model flagged over half of healthy patients as having chronic kisney disease.
+We did not expect to see small C values resulting in a logistic regression classifier that predicted the majority class for all patients. We also did not expect that achieving a high recall would come at such a large cost in precision as the model flagged over half of healthy patients as having chronic kidney disease.
 
-Some limitations of our results include a relatively small sample size (especially in the test set) and only from a single source. More patient data from multiple sources would likely result in a superior model that can generalize better to broader populations. We only used 4 of the available 24 features in our model. There are likely other informative features that could be added to improve the model's predictive ability. The linear regression model used assumes a linear effect of features on the response. Using a different type of model like k-NN or tree-based models could be benefical to capture non-linear relationships and interactions that the linear regression model missed. The C hyperparameter of the logistic regression model was fixed at 1 after the grid search but a better practice would be to jointly optimize C and the decision threshold.
+Some limitations of our results include a relatively small sample size (especially in the test set) and only from a single source. More patient data from multiple sources would likely result in a superior model that can generalize better to broader populations. We only used 4 of the available 24 features in our model. There are likely other informative features that could be added to improve the model's predictive ability. The linear regression model used assumes a linear effect of features on the response. Using a different type of model like k-NN or tree-based models could be beneficial to capture non-linear relationships and interactions that the linear regression model missed. The C hyperparameter of the logistic regression model was fixed at 1 after the grid search but a better practice would be to jointly optimize C and the decision threshold.
 
-An additonal check that would improve model reliability would be to compare the signs and magnitudes of the model coefficients with clinical expectations for the relationship between those features and chronic kidney disease. In a clinical setting, it could also be beneficial to output the model probabilities to give clinicians an estimate of how confident the model is for each prediction.
+An additional check that would improve model reliability would be to compare the signs and magnitudes of the model coefficients with clinical expectations for the relationship between those features and chronic kidney disease. In a clinical setting, it could also be beneficial to output the model probabilities to give clinicians an estimate of how confident the model is for each prediction.
 
 ## References
 
