@@ -473,6 +473,7 @@ dependencies = [
     { name = "scikit-learn" },
     { name = "seaborn" },
     { name = "ucimlrepo" },
+    { name = "vl-convert-python" },
 ]
 
 [package.dev-dependencies]
@@ -490,6 +491,7 @@ requires-dist = [
     { name = "scikit-learn", specifier = ">=1.9.1" },
     { name = "seaborn", specifier = ">=0.13.2" },
     { name = "ucimlrepo", specifier = ">=0.0.7" },
+    { name = "vl-convert-python", specifier = ">=1.9.0.post1" },
 ]
 
 [package.metadata.requires-dev]
