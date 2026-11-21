@@ -11,7 +11,7 @@ The dataset used in this project contains patient lab tests, information and res
 # Report
 
 The final report is available in the following formats:
-- [HTML Report](analysis/kidney-disease-classification.html)
+- [HTML Report]((https://ubc-mds-2026-27.github.io/DSCI-522-kidney_disease_classification/analysis/kidney-disease-classification.html))
 - [PDF Report](analysis/kidney-disease-classification.pdf)
 
 # Usage
