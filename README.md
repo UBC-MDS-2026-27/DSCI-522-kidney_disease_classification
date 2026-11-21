@@ -10,7 +10,9 @@ The dataset used in this project contains patient lab tests, information and res
 
 # Report
 
-The final report can be found here (HTML and PDF) ***\*\* to do add link to HTML and PDF. \*\****
+The final report is available in the following formats:
+- [HTML Report](analysis/kidney-disease-classification.html)
+- [PDF Report](analysis/kidney-disease-classification.pdf)
 
 # Usage
 
