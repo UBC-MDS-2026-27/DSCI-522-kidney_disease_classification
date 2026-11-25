@@ -1,0 +1,6 @@
+Package: kidneyDiseaseClassification
+Title: Kidney Disease Classification
+Version: 0.1.0
+Imports:
+    knitr (== 1.52),
+    rmarkdown (== 2.32)
