@@ -52,4 +52,5 @@ RUN Rscript -e "renv::restore()"
 
 # Start the ssh server when the container starts.
 # -D keeps it in the foreground, so the container keeps running.
+RUN mkdir -p /run/sshd
 CMD ["/usr/sbin/sshd", "-D"]
