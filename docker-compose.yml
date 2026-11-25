@@ -10,7 +10,7 @@ services:
     image: frozenjune/dsci-522-kidney_disease_classification:sha-f3b8d1b
     ports:
       # 2222 on your computer, 22 (ssh) in the container
-      - "2222:22"
+      - "127.0.0.1:2222:22"
     volumes:
       # your project folder, at /workspace in the container
       - .:/workspace
