@@ -21,10 +21,10 @@ We run the analysis in a Docker container so that everyone uses the same softwar
 ### Setup
 If it's the first time running the project, install and launch [Docker](https://www.docker.com/get-started/), then clone this repository and move into it:
 
-    ``` bash
-    git clone https://github.com/UBC-MDS-2026-27/DSCI-522-kidney_disease_classification.git
-    cd DSCI-522-kidney_disease_classification
-    ```
+``` bash
+git clone https://github.com/UBC-MDS-2026-27/DSCI-522-kidney_disease_classification.git
+cd DSCI-522-kidney_disease_classification
+```
 
 Run all commands below from the root of this repository.
 
