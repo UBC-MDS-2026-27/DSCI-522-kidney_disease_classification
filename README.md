@@ -18,6 +18,8 @@ The final report is available in the following formats:
 
 We run the analysis in a Docker container so that everyone uses the same software and package versions. The Docker image is published on [Docker Hub](https://hub.docker.com/r/frozenjune/dsci-522-kidney_disease_classification)
 
+To change the project (work in the container, add a package, or republish the report), see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 ### Setup
 If it's the first time running the project, install and launch [Docker](https://www.docker.com/get-started/), then clone this repository and move into it:
 
