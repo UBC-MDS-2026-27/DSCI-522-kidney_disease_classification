@@ -47,7 +47,7 @@ docker compose pull
 ### 3. Run the analysis and render the report
 
 ```bash
-docker compose run --rm analysis-env uv run quarto render
+docker compose run --rm analysis-env uv run quarto render analysis/kidney-disease-classification.qmd
 ```
 
 Rendering runs the whole analysis from scratch. It downloads the data from the UCI Machine Learning Repository to `data/raw/`, writes the processed training and test sets to `data/processed/`, and creates the report at `analysis/kidney-disease-classification.html`. Existing files in those locations are overwritten. Because of `--rm`, the container is removed by itself when the render finishes, so there is nothing to stop afterwards.
