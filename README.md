@@ -11,12 +11,12 @@ The dataset used in this project contains patient lab tests, information and res
 ## Report
 
 The final report is available in the following formats:
-- [HTML Report](analysis/kidney-disease-classification.html)
+- [HTML Report](https://ubc-mds-2026-27.github.io/DSCI-522-kidney_disease_classification/)
 - [PDF Report](analysis/kidney-disease-classification.pdf)
 
 ## Usage
 
-We run the analysis in a Docker container so that everyone uses the same software and package versions. The Docker image is published on [Docker Hub] (https://hub.docker.com/r/frozenjune/dsci522-dockerfile-practice?utm_source)
+We run the analysis in a Docker container so that everyone uses the same software and package versions. The Docker image is published on [Docker Hub](https://hub.docker.com/r/frozenjune/dsci-522-kidney_disease_classification)
 
 ### Setup
 If it's the first time running the project, install and launch [Docker](https://www.docker.com/get-started/), then clone this repository and move into it:
