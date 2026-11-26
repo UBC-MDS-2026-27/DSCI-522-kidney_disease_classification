@@ -2247,7 +2247,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
   <li><a href="#discussion" id="toc-discussion" class="nav-link" data-scroll-target="#discussion">Discussion</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="kidney-disease-classification.pdf"><i class="bi bi-file-pdf"></i>Typst</a></li></ul></div></nav>
+</nav>
 </div>
 <main class="content" id="quarto-document-content" tabindex="-1">
 
@@ -2306,7 +2306,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="methods" class="level2">
 <h2 class="anchored" data-anchor-id="methods">Methods</h2>
-<div id="a0f91b77" class="cell" data-execution_count="1">
+<div id="6965a221" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> subprocess</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
@@ -2321,7 +2321,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="data" class="level3">
 <h3 class="anchored" data-anchor-id="data">Data</h3>
 <p>We downloaded the data from the UCI Machine Learning Repository (Rubini, Soundarapandian, and Eswaran 2015) using a script (<code>scripts/download_data.py</code>) that saves it as-is to <code>data/raw/</code>. The report runs this script when it renders, so all results come straight from the original source.</p>
-<div id="052ca4b6" class="cell" data-execution_count="2">
+<div id="391552f5" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>subprocess.run(</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    [sys.executable, <span class="st">&quot;scripts/download_data.py&quot;</span>],</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    cwd<span class="op">=</span><span class="st">&quot;..&quot;</span>, check<span class="op">=</span><span class="va">True</span>, capture_output<span class="op">=</span><span class="va">True</span>,</span>
@@ -2329,7 +2329,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ckd <span class="op">=</span> pd.read_csv(<span class="st">&quot;../data/raw/ckd_raw.csv&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Two text columns contained stray tab characters: one diabetes value was recorded as a tab followed by “no” and two diagnoses were recorded as “ckd” followed by a tab. We removed leading and trailing whitespace from every text column.</p>
-<div id="3d2ba0dc" class="cell" data-execution_count="3">
+<div id="916da733" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>text_cols <span class="op">=</span> ckd.select_dtypes(exclude<span class="op">=</span><span class="st">&quot;number&quot;</span>).columns</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ckd[text_cols] <span class="op">=</span> ckd[text_cols].<span class="bu">apply</span>(<span class="kw">lambda</span> s: s.<span class="bu">str</span>.strip())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -2337,7 +2337,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="traintest-split" class="level3">
 <h3 class="anchored" data-anchor-id="traintest-split">Train/test split</h3>
 <p>We split the data into a training set (75%, 300 patients) and a test set (25%, 100 patients). The split was stratified by diagnosis so both sets keep the original proportion of patients with CKD (62.5%). All exploratory analysis and feature selection below uses the training set only; the test set is set aside for the final evaluation of the model.</p>
-<div id="e3c440de" class="cell" data-execution_count="4">
+<div id="bc0ab51a" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>train_df, test_df <span class="op">=</span> train_test_split(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    ckd, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span><span class="dv">522</span>, stratify<span class="op">=</span>ckd[<span class="st">&quot;class&quot;</span>]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -2361,7 +2361,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="exploratory-data-analysis-and-feature-selection" class="level3">
 <h3 class="anchored" data-anchor-id="exploratory-data-analysis-and-feature-selection">Exploratory data analysis and feature selection</h3>
 <p>Many features had missing values (Figure 1). We excluded any feature missing in more than 10% of training patients. This removed 11 of the 24 features.</p>
-<div id="f73c4a41" class="cell" data-execution_count="5">
+<div id="1eb3cfc2" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>pct_missing <span class="op">=</span> train_df.drop(columns<span class="op">=</span><span class="st">&quot;class&quot;</span>).isna().mean()</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>keep <span class="op">=</span> pct_missing[pct_missing <span class="op">&lt;=</span> <span class="fl">0.1</span>].index.tolist()</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2389,7 +2389,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 <p><strong>Figure 1.</strong> Percentage of missing values for each feature in the training set. Features past the dashed line (over 10% missing, in red) were dropped.</p>
 <p>Next, we ranked the remaining features by how strongly they relate to CKD. We calculated the Pearson correlation between each feature and the diagnosis using every training patient with a value for that feature (Table 1). Hypertension (r = 0.60) and diabetes mellitus (r = 0.55) were the strongest, followed by random blood glucose (r = 0.41), appetite (r = 0.39) and blood urea (r = 0.39).</p>
-<div id="bbd0a14c" class="cell" data-execution_count="6">
+<div id="5e98639c" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>to_number <span class="op">=</span> {<span class="st">&quot;yes&quot;</span>: <span class="dv">1</span>, <span class="st">&quot;no&quot;</span>: <span class="dv">0</span>, <span class="st">&quot;abnormal&quot;</span>: <span class="dv">1</span>, <span class="st">&quot;normal&quot;</span>: <span class="dv">0</span>,</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>             <span class="st">&quot;present&quot;</span>: <span class="dv">1</span>, <span class="st">&quot;notpresent&quot;</span>: <span class="dv">0</span>, <span class="st">&quot;poor&quot;</span>: <span class="dv">1</span>, <span class="st">&quot;good&quot;</span>: <span class="dv">0</span>}</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> train_df[keep].replace(to_number).<span class="bu">apply</span>(pd.to_numeric)</span>
@@ -2480,7 +2480,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 <p><strong>Table 1.</strong> Pearson correlation between each kept feature and CKD diagnosis in the training set, strongest first.</p>
 <p>We examined the correlations between features to avoid selecting features that carry the same information (Figure 2). Working down the ranking in Table 1, we added a feature only if it did not correlate with any already selected feature more strongly than 0.7 (in absolute value). None of the top-ranked features exceeded this threshold. The four selected features are therefore hypertension, diabetes mellitus, random blood glucose and appetite.</p>
-<div id="27ba6821" class="cell" data-execution_count="7">
+<div id="c4ce217b" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>corr <span class="op">=</span> (</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    X_train.assign(ckd<span class="op">=</span>y_train).corr()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    .rename(index<span class="op">=</span>labels <span class="op">|</span> {<span class="st">&quot;ckd&quot;</span>: <span class="st">&quot;CKD diagnosis&quot;</span>},</span>
@@ -2500,7 +2500,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 </div>
 <p><strong>Figure 2.</strong> Pearson correlations between the 13 kept features and CKD diagnosis in the training set. Red indicates a positive correlation and blue a negative one.</p>
-<div id="309ceff5" class="cell" data-execution_count="8">
+<div id="a291d813" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>selected <span class="op">=</span> []</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> feature <span class="kw">in</span> strength.index:</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">all</span>(<span class="bu">abs</span>(X_train[feature].corr(X_train[c])) <span class="op">&lt;</span> <span class="fl">0.7</span> <span class="cf">for</span> c <span class="kw">in</span> selected):</span>
@@ -2518,7 +2518,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="preprocessing" class="level3">
 <h3 class="anchored" data-anchor-id="preprocessing">Preprocessing</h3>
 <p>We coded the diagnosis as 1 for CKD and 0 for not CKD. The three features with two categories (hypertension, diabetes mellitus and appetite) were imputed with their most frequent value and then one-hot encoded into a single binary column each. The one numeric feature, random blood glucose, was imputed with its median and then standardized. All imputation and scaling steps are part of the model pipeline, so they are learned from the training data only.</p>
-<div id="d1b86751" class="cell" data-execution_count="9">
+<div id="e06b3028" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.impute <span class="im">import</span> SimpleImputer</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> OneHotEncoder</span>
@@ -2533,7 +2533,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> test_df.drop(columns<span class="op">=</span><span class="st">&#39;class&#39;</span>)</span>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> test_df[<span class="st">&#39;class&#39;</span>].<span class="bu">map</span>({<span class="st">&quot;ckd&quot;</span>: <span class="dv">1</span>, <span class="st">&quot;notckd&quot;</span>: <span class="dv">0</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="749ddef6" class="cell" data-execution_count="10">
+<div id="ce67aa8e" class="cell" data-execution_count="10">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>numeric_features <span class="op">=</span> [<span class="st">&#39;bgr&#39;</span>]</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>binary_features <span class="op">=</span> [<span class="st">&#39;htn&#39;</span>, <span class="st">&#39;dm&#39;</span>, <span class="st">&#39;appet&#39;</span>]</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2560,7 +2560,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="model-and-hyperparameter-tuning" class="level3">
 <h3 class="anchored" data-anchor-id="model-and-hyperparameter-tuning">Model and hyperparameter tuning</h3>
 <p>We used a logistic regression classifier, which predicts the probability that a patient has CKD. To choose the regularization strength C, we ran 5-fold cross-validation on the training set over 17 values of C between 0.0001 and 10,000. We used the F2 score as the metric. The F2 score combines precision and recall but weights recall more heavily, because missing a patient with CKD is more harmful than a false alarm.</p>
-<div id="68e1c9e5" class="cell" data-execution_count="11">
+<div id="fc81e850" class="cell" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV, cross_val_predict, FixedThresholdClassifier</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> fbeta_score, make_scorer, classification_report, precision_recall_curve, confusion_matrix</span>
@@ -2584,7 +2584,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)</span>
 <span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>best_C <span class="op">=</span> grid_search.best_params_[<span class="st">&#39;logisticregression__C&#39;</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="3d8109e7" class="cell" data-execution_count="12">
+<div id="6a24601f" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_train_cv(param_vals, train_scores, val_scores, xlabel, ylabel<span class="op">=</span><span class="st">&quot;F2 Score&quot;</span>):</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;param&quot;</span>: <span class="bu">list</span>(param_vals) <span class="op">*</span> <span class="dv">2</span>,</span>
@@ -2615,7 +2615,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 </div>
 <p><strong>Figure 3.</strong> Mean F2 score on the training folds and validation folds of 5-fold cross-validation, for each value of the regularization strength C.</p>
-<div id="6374161e" class="cell" data-execution_count="13">
+<div id="6a5c96fa" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>lr_pipe.set_params(logisticregression__C<span class="op">=</span><span class="fl">0.01</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>lr_pipe.fit(X_train, y_train)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>n_pred_ckd_small_C <span class="op">=</span> <span class="bu">int</span>(lr_pipe.predict(X_train).<span class="bu">sum</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2624,7 +2624,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="decision-threshold" class="level3">
 <h3 class="anchored" data-anchor-id="decision-threshold">Decision threshold</h3>
-<div id="9967dd95" class="cell" data-execution_count="14">
+<div id="60632c1b" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Determine threshold that achieves at least 95% recall</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>lr_pipe.set_params(logisticregression__C<span class="op">=</span><span class="dv">1</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -2639,7 +2639,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> thresholds[idx]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>By default, logistic regression predicts CKD when the predicted probability is at least 0.5. Because false negatives are costly, we lowered this decision threshold. Using 5-fold cross-validation on the training set, we obtained an out-of-fold predicted probability of CKD for every training patient. We then chose the highest threshold that still achieved a recall of at least 0.95. This threshold was 0.29, with a cross-validation recall of 0.95 and precision of 0.76 (Figure 4).</p>
-<div id="77dfd918" class="cell" data-execution_count="15">
+<div id="e7689c85" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">## Precision-Recall Curve with identified threshold</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>pr_df <span class="op">=</span> pd.DataFrame({</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;recall&quot;</span>: recall[:<span class="op">-</span><span class="dv">1</span>],</span>
@@ -2681,7 +2681,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 <p><strong>Figure 4.</strong> Precision-recall curve from out-of-fold predictions on the training set. The red point marks the chosen decision threshold, and the dashed grey line shows the proportion of training patients with CKD.</p>
 <p>Finally, we fit the logistic regression model with C = 1 on the full training set, using the chosen decision threshold of 0.29.</p>
-<div id="0d141dfa" class="cell" data-execution_count="16">
+<div id="e9d98f00" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>final_model <span class="op">=</span> FixedThresholdClassifier(lr_pipe, threshold<span class="op">=</span><span class="fl">0.29</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>final_model.fit(X_train, y_train)<span class="op">;</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -2689,7 +2689,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
-<div id="09547ca1" class="cell" data-execution_count="17">
+<div id="29bba4f6" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> (</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    accuracy_score, precision_score, recall_score, f1_score, fbeta_score,</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    confusion_matrix, ConfusionMatrixDisplay,</span>
@@ -2751,7 +2751,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 </div>
 <p><strong>Table 2.</strong> Performance of the final model on the test set, with CKD as the positive class.</p>
-<div id="a91314f8" class="cell" data-execution_count="18">
+<div id="bc3106dd" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">4</span>))</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ConfusionMatrixDisplay(cm, display_labels<span class="op">=</span>[<span class="st">&quot;CKD&quot;</span>, <span class="st">&quot;Not CKD&quot;</span>]).plot(</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    ax<span class="op">=</span>ax, cmap<span class="op">=</span><span class="st">&quot;Blues&quot;</span>, colorbar<span class="op">=</span><span class="va">False</span>, text_kw<span class="op">=</span>{<span class="st">&quot;fontsize&quot;</span>: <span class="dv">14</span>}</span>
