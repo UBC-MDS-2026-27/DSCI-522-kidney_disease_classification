@@ -57,13 +57,7 @@ Rendering runs the whole analysis from scratch. It downloads the data from the U
 The raw data are already included in `data/raw/`. To re-download them without rendering the report:
 
 ``` bash
-uv run python scripts/download_data.py
-```
-
-The `notebooks/` folder contains our exploratory work (EDA and modelling). It is not part of the report. To open it:
-
-``` bash
-uv run jupyter lab
+docker compose run --rm analysis-env uv run python scripts/download_data.py
 ```
 
 ## Dependencies
