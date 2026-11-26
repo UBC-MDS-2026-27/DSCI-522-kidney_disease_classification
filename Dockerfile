@@ -1,19 +1,16 @@
 # Adapted from docker-uv-renv by Daniel Chen (MIT License)
 # https://github.com/chendaniely/docker-uv-renv
 
-# Start from Ubuntu Linux with R installed.
-# Change 4.6.2 to the R version in your renv.lock.
-FROM rocker/r-ver:4.6.1
+# Start from Ubuntu Linux (this image also has R, which you can ignore).
+FROM rocker/r-ver:4.6.2
 
 # Install the programs the project needs:
 # curl downloads files, git/less/nano let you work in a terminal,
-# make runs a Makefile, openssh-server lets Positron connect over ssh,
-# libuv1-dev is needed by the R package fs
+# make runs a Makefile, openssh-server lets Positron connect over ssh
 RUN apt-get update && apt-get install --yes \
     curl \
     git \
     less \
-    libuv1-dev \
     make \
     nano \
     openssh-server
@@ -32,7 +29,7 @@ COPY --from=ghcr.io/astral-sh/uv:0.13.7 /uv /uvx /usr/local/bin/
 # so the packages go in /opt instead
 WORKDIR /workspace
 
-# ---- Python packages (uv), in /opt/venv ----
+# Python packages (uv) go in /opt/venv
 ENV UV_PROJECT_ENVIRONMENT=/opt/venv
 # ssh logins don't see ENV, only /etc/environment
 RUN echo "UV_PROJECT_ENVIRONMENT=$UV_PROJECT_ENVIRONMENT" >> /etc/environment
@@ -40,17 +37,10 @@ COPY pyproject.toml uv.lock .python-version ./
 # --locked: stop if uv.lock doesn't match pyproject.toml
 RUN uv sync --locked
 
-# ---- R packages (renv), in /opt/renv/library ----
-RUN echo "RENV_PATHS_LIBRARY=/opt/renv/library" >> /usr/local/lib/R/etc/Renviron.site
-COPY renv.lock .Rprofile ./
-COPY renv/activate.R renv/
-RUN Rscript -e "renv::restore()"
-
 # On a Linux laptop, remove the # from the next line.
 # (sshd wants root to own the key file, but on Linux the mounted one is yours.)
-RUN echo "StrictModes no" > /etc/ssh/sshd_config.d/container.conf
+# RUN echo "StrictModes no" > /etc/ssh/sshd_config.d/container.conf
 
 # Start the ssh server when the container starts.
 # -D keeps it in the foreground, so the container keeps running.
-RUN mkdir -p /run/sshd
 CMD ["/usr/sbin/sshd", "-D"]
